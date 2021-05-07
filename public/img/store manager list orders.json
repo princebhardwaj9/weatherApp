@@ -1,0 +1,282 @@
+{
+	"journey": {
+		"steps": [
+			{
+				"id": "5ec38ca83a22c00010acc24d",
+				"slug": "sm-show-orders"
+			},
+			{
+				"id": "5ec38ca83a22c00010acc24e",
+				"slug": "sm-order-not-served"
+			},
+			{
+				"id": "5ffc347a4351bbe30fa4b346",
+				"slug": "order-items"
+			},
+			{
+				"id": "5ffc3486e13ad83c709cb3f3",
+				"slug": "fulfilled-items"
+			},
+			{
+				"id": "5ffc34a756adc90f08f5d290",
+				"slug": "order-value"
+			},
+			{
+				"id": "6000534ae13ad8886a9e2fb4",
+				"slug": "sm-payment"
+			}
+		],
+		"deleted": false,
+		"defaultJourney": false,
+		"actions": {
+			"response": []
+		},
+		"stepConditions": [],
+		"saveJourneyResponses": false,
+		"name": "store manager list orders",
+		"description": "store manager list orders",
+		"categoryType": "Default Category",
+		"survey": false,
+		"slug": "store-manager-list-orders",
+		"__v": 12,
+		"nodePositions": {
+			"__action__": {
+				"x": 200,
+				"y": 450
+			},
+			"sm-order-not-served": {
+				"x": 224,
+				"y": 257
+			},
+			"sm-show-orders": {
+				"x": 223,
+				"y": 172
+			},
+			"__trigger__": {
+				"x": 236,
+				"y": 52
+			},
+			"__action__response": {
+				"x": 224,
+				"y": 732
+			},
+			"order-items": {
+				"x": 221,
+				"y": 380
+			},
+			"fulfilled-items": {
+				"x": 224,
+				"y": 449
+			},
+			"payment-mode": {
+				"x": 226,
+				"y": 639
+			},
+			"order-value": {
+				"x": 226,
+				"y": 533
+			},
+			"sm-payment": {
+				"x": 214,
+				"y": 621
+			}
+		},
+		"conditionalNodes": {}
+	},
+	"stepsMap": {
+		"5ec38ca83a22c00010acc24d": {
+			"deleted": false,
+			"slug": "sm-show-orders",
+			"defaultStep": false,
+			"name": "sm show orders",
+			"__v": 0,
+			"prompts": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "storemanagerListOrders"
+				}
+			],
+			"validators": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "storemanagerListOrdersVldr"
+				}
+			]
+		},
+		"5ec38ca83a22c00010acc24e": {
+			"deleted": false,
+			"slug": "sm-order-not-served",
+			"defaultStep": false,
+			"name": "sm order not served",
+			"__v": 0,
+			"prompts": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "storemanagerOrderNotServedPrompt"
+				}
+			],
+			"validators": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "storemanagerOrderNotServedVldr"
+				}
+			]
+		},
+		"5ffc347a4351bbe30fa4b346": {
+			"deleted": false,
+			"slug": "order-items",
+			"defaultStep": false,
+			"name": "order items",
+			"__v": 27,
+			"prompts": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smOrderItemsStep",
+					"args": [
+						"prompt"
+					]
+				}
+			],
+			"validators": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smOrderItemsStep",
+					"args": [
+						"validator"
+					]
+				}
+			]
+		},
+		"5ffc3486e13ad83c709cb3f3": {
+			"deleted": false,
+			"slug": "fulfilled-items",
+			"defaultStep": false,
+			"name": "fulfilled items",
+			"__v": 19,
+			"prompts": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smFulfilledItemsStep",
+					"args": [
+						"prompt"
+					]
+				}
+			],
+			"validators": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smFulfilledItemsStep",
+					"args": [
+						"validator"
+					]
+				}
+			]
+		},
+		"5ffc34a756adc90f08f5d290": {
+			"deleted": false,
+			"slug": "order-value",
+			"defaultStep": false,
+			"name": "order value",
+			"__v": 30,
+			"prompts": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smOrderValueStep",
+					"args": [
+						"prompt"
+					]
+				}
+			],
+			"validators": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smOrderValueStep",
+					"args": [
+						"validator"
+					]
+				}
+			]
+		},
+		"6000534ae13ad8886a9e2fb4": {
+			"deleted": false,
+			"slug": "sm-payment",
+			"defaultStep": false,
+			"name": "sm payment",
+			"__v": 33,
+			"prompts": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smPaymentModeStep",
+					"args": [
+						"prompt"
+					]
+				}
+			],
+			"validators": [
+				{
+					"type": "func",
+					"id": 0,
+					"func": "smPaymentModeStep",
+					"args": [
+						"validator"
+					]
+				}
+			]
+		}
+	},
+	"apis": [],
+	"training": [],
+	"functions": [
+		{
+			"name": "storemanagerListOrders",
+			"code": "app.indianHours = (date, operation) => {\n    if (operation == \"+\") {\n        return new Date(new Date(date).getTime() + (5 * 60 * 60 * 1000 + 30 * 60 * 1000));\n    }\n    return new Date(new Date(date).getTime() - (5 * 60 * 60 * 1000 + 30 * 60 * 1000));\n};\n\nreturn new Promise(async (resolve) => {\n    app.log(\"in storeManagerListOrders\");\n    if (app.getOrders === undefined) {\n        await app.executeFunction(\"utilStoreManager\");\n    }\n    let cards = [];\n    let managerDetails = await app.memory\n        .get(\"storemanager-details\")\n        .then(JSON.parse)\n        .catch((e) => {\n            app.log(e, \"error\");\n            return {};\n        });\n    if (!managerDetails || !managerDetails.plant) {\n        await app.sendTextMessage(\"something went wrong, let's try again.\");\n        await app.memory.delete(\"storemanager-details\");\n        return app.triggerIntent(\"store-manager-login\").then(resolve);\n    }\n    let orderDate;\n    let orderIndex = {};\n    if (app.context.steps && app.context.steps[\"ORDERINDEX\"]) {\n        orderIndex = app.context.steps[\"ORDERINDEX\"];\n    } else {\n        orderIndex.from = 0;\n    }\n    if (app.context.steps && app.context.steps[\"ORDERDATE\"]) {\n        orderDate = app.context.steps[\"ORDERDATE\"];\n    } else {\n        orderDate = new Date().toISOString().split(\"T\")[0];\n    }\n    const store_plant = managerDetails.plant;\n    // app.log(shownOrders, 'shownOrders');\n    // if (shownOrders) {\n    //     await showOrders(store_plant, orderDate, orderIndex.from, [shownOrders, orderIndex.total]).catch((e) => {\n    //         app.log(e, 'error');\n    //         app.sendTextMessage('something went wrong');\n    //     });\n    // } else {\n    await app.showOrders(store_plant, orderDate, orderIndex.from).catch((e) => {\n        app.log(e, \"error\");\n        app.sendTextMessage(\"something went wrong\");\n    });\n    resolve();\n});\n"
+		},
+		{
+			"name": "storemanagerListOrdersVldr",
+			"code": "const dbUpdate = function (data) {\n    let table = data.table;\n    let record = data.record;\n\n    return app.dataStore.update({ table, record });\n};\n\nconst appSleep = (millisec, sure) => {\n    return new Promise((resolve) => {\n        setTimeout(resolve, millisec);\n    });\n};\n\nreturn new Promise(async (resolve, reject) => {\n    app.log(\"in storemanagerListOrdersVldr\");\n    let managerDetails = await app.memory\n        .get(\"storemanager-details\")\n        .then(JSON.parse)\n        .catch(() => {});\n    if (!managerDetails || !managerDetails.plant) {\n        await app.sendTextMessage(\"something went wrong, let's try again.\");\n        await app.memory.delete(\"storemanager-details\").catch(() => \"\");\n        return app.triggerIntent(\"store-manager-login\").then(resolve);\n    }\n    let store_plant = managerDetails.plant;\n    let orderIndex = {};\n    if (app.context.steps[\"ORDERINDEX\"]) {\n        orderIndex = app.context.steps[\"ORDERINDEX\"];\n    } else {\n        orderIndex.from = 0;\n    }\n    app.log(orderIndex, \"orderIndex\");\n    let orderDate = app.context.steps[\"ORDERDATE\"];\n    let shownOrders = app.context.steps[\"ORDERS\"] || [];\n    let message = app.data.message ? app.data.message.trim() : \"\";\n    let enteredDate;\n    // app.log(app.prediction.entities.date, \"prediction\");\n    if (app._.get(app, \"prediction.entities.date[0].value.value\")) {\n        enteredDate = app.prediction.entities.date[0].value.value.split(\"T\")[0];\n    }\n\n    if (message.match(/show more/i)) {\n        if (orderIndex.from + 10 >= orderIndex.total) {\n            await app.sendTextMessage(\"No more orders\");\n            await app.showOrders(store_plant, orderDate, orderIndex.from).catch((e) => {\n                app.log(e, \"error\");\n                app.sendTextMessage(\"something went wrong\");\n            });\n            resolve({ sucess: false });\n        } else {\n            await app.showOrders(store_plant, orderDate, orderIndex.from + 10).catch((e) => {\n                app.log(e, \"error\");\n                app.sendTextMessage(\"something went wrong\");\n            });\n            resolve({ sucess: false });\n        }\n    } else if (message.match(/go back/i)) {\n        if (orderIndex.from >= 10) {\n            // await app.sendTextMessage('No go back logic now');\n            await app.showOrders(store_plant, orderDate, orderIndex.from - 10).catch((e) => {\n                app.log(e, \"error\");\n                app.sendTextMessage(\"something went wrong\");\n            });\n            resolve({ sucess: false });\n        } else {\n            await app.sendTextMessage(`You can't go back. these are the orders`);\n            await app.showOrders(store_plant, orderDate, orderIndex.from).catch((e) => {\n                app.log(e, \"error\");\n                app.sendTextMessage(\"something went wrong\");\n            });\n            resolve({ sucess: false });\n        }\n    } else if (message.match(/logout|log out/i)) {\n        app.log(\"im herere logout\");\n        return app.triggerIntent(\"store-manager-logout\").then(resolve);\n    } else {\n        if (enteredDate) {\n            await app.showOrders(store_plant, enteredDate, orderIndex.from).catch((e) => {\n                app.log(e, \"error\");\n                app.sendTextMessage(\"something went wrong\");\n            });\n            resolve({ sucess: false });\n        } else {\n            // order actions;\n            if (message.match(/order confirmed/i)) {\n                let orderid = message.split(\"-\")[1];\n                if (orderid) {\n                    let findInOrders = app._.find(shownOrders, (ord) => {\n                        if (ord._source.order_id == orderid) {\n                            return true;\n                        }\n                        return false;\n                    });\n                    if (findInOrders && findInOrders._source) {\n                        app.log(findInOrders, \"found\");\n                        await app.setMultipleSteps({\n                            \"CURRENTORDER\": findInOrders,\n                            \"ORDERINDEX\": orderIndex,\n                            \"ORDERDATE\": orderDate,\n                            \"sm-order-not-served\": \"NA\",\n                            \"order-items\": undefined,\n                            \"fulfilled-items\": undefined,\n                            \"order-value\": undefined,\n                        });\n                        return resolve();\n                    }\n                    app.sendTextMessage(\"Please try again.\");\n                    await app.showOrders(store_plant, orderDate, orderIndex.from);\n                    resolve({ sucess: false });\n                } else {\n                    app.sendTextMessage(\"Please try again.\");\n                    await app.showOrders(store_plant, orderDate, orderIndex.from);\n                    resolve({ sucess: false });\n                }\n            } else if (message.match(/order delivered/i)) {\n                let orderid = message.split(\"-\")[1];\n                if (orderid) {\n                    let findInOrders = app._.find(shownOrders, (ord) => {\n                        if (ord._source.order_id == orderid) {\n                            return true;\n                        }\n                        return false;\n                    });\n                    if (findInOrders && findInOrders._source) {\n                        app.log(findInOrders, \"found\");\n                        await app.setMultipleSteps({\n                            \"CURRENTORDER\": findInOrders,\n                            \"ORDERINDEX\": orderIndex,\n                            \"ORDERDATE\": orderDate,\n                            \"order-items\": \"NA\",\n                            \"fulfilled-items\": \"NA\",\n                            \"order-value\": \"NA\",\n                            \"sm-order-not-served\": \"NA\",\n                            \"sm-payment\": undefined,\n                        });\n                        return resolve();\n                    }\n                    app.sendTextMessage(\"Please try again.\");\n                    await app.showOrders(store_plant, orderDate, orderIndex.from);\n                    resolve({ sucess: false });\n                } else {\n                    app.sendTextMessage(\"Please try again.\");\n                    await app.showOrders(store_plant, orderDate, orderIndex.from);\n                    resolve({ sucess: false });\n                }\n            } else if (message.match(/order not serviced/i)) {\n                let orderid = message.split(\"-\")[1];\n                let matchedIndex;\n                if (orderid) {\n                    let findInOrders = app._.find(shownOrders, (ord, index) => {\n                        if (ord._source.order_id == orderid) {\n                            matchedIndex = index;\n                            return true;\n                        }\n                        return false;\n                    });\n                    if (findInOrders && findInOrders._source) {\n                        await app.setMultipleSteps({\n                            ORDERNOTSERVICED: findInOrders,\n                            ORDERINDEX: orderIndex,\n                            ORDERDATE: orderDate,\n                        });\n                        resolve();\n                    } else {\n                        app.sendTextMessage(\"Please try again.\");\n                        await app.showOrders(store_plant, orderDate, orderIndex.from);\n                        resolve({ sucess: false });\n                    }\n                } else {\n                    app.sendTextMessage(\"Please try again.\");\n                    await app.showOrders(store_plant, orderDate, orderIndex.from);\n                    resolve({ sucess: false });\n                }\n            } else if (message.match(/call placed/i)) {\n                let matchedIndex;\n                let orderid = message.split(\"-\")[1];\n                if (orderid) {\n                    let findInOrders = app._.find(shownOrders, (ord, index) => {\n                        if (ord._source.order_id == orderid) {\n                            matchedIndex = index;\n                            return true;\n                        }\n                        return false;\n                    });\n                    if (findInOrders && findInOrders._source) {\n                        let managerDetails = await app.memory\n                            .get(\"storemanager-details\")\n                            .then(JSON.parse)\n                            .catch((e) => {\n                                app.log(e, \"error\");\n                                return {};\n                            });\n                        // app.log(findInOrders, 'found');\n                        let record = {\n                            _id: findInOrders._id,\n                            order_status: \"CALL PLACED\",\n                            store_manager_mobile: app._.get(managerDetails, \"store_manager_mobile\", \"\"),\n                            store_manager_name: app._.get(managerDetails, \"store_manager_name\", \"\"),\n                        };\n                        await dbUpdate({\n                            table: \"order_db\",\n                            record,\n                        })\n                            .then(async (ord) => {\n                                await app.memory.set(\"currentOrder\", ord, 300);\n                                // await app.sendTextMessage(\"Please wait.. Updating the order status\");\n                                // await appSleep(1500);\n                                await app.sendTextMessage(`Order (${orderid}) status updated to - CALL PLACED`);\n                                await app.showOrders(store_plant, orderDate, orderIndex.from, ord);\n                                // await app.sendQuickReplies({\n                                //     title: \"\",\n                                //     options: [\n                                //         {\n                                //             title: `show open orders on ${orderDate.split(\"T\")[0]}`\n                                //         }\n                                //     ]\n                                // })\n                                resolve({ success: false });\n                            })\n                            .catch(async (err) => {\n                                app.logger.error(err);\n                                app.sendTextMessage(\"Please try again.\");\n                                await app.showOrders(store_plant, orderDate, orderIndex.from);\n                                resolve({ sucess: false });\n                            });\n                    } else {\n                        app.sendTextMessage(\"Please try again.\");\n                        await app.showOrders(store_plant, orderDate, orderIndex.from);\n                        resolve({ sucess: false });\n                    }\n                }\n            } else {\n                app.sendTextMessage(\"Please try again.\");\n                await app.showOrders(store_plant, orderDate, orderIndex.from);\n                resolve({ sucess: false });\n            }\n        }\n    }\n});\n"
+		},
+		{
+			"name": "storemanagerOrderNotServedPrompt",
+			"code": "return new Promise(async (resolve) => {\n    await app.sendQuickReplies({\n        title: \"Please select a reason for order not serviced!\",\n        options: [\n            {\n                title: \"Product not available\",\n            },\n            {\n                title: \"Area unserviceable\",\n            },\n            {\n                title: \"Customer not reachable\",\n            },\n            {\n                title: \" Cancelled by customer\",\n            },\n            {\n                title: \"Back\",\n            },\n        ],\n    });\n    resolve();\n});\n"
+		},
+		{
+			"name": "storemanagerOrderNotServedVldr",
+			"code": "const dbUpdate = function (data) {\n    let table = data.table;\n    let record = data.record;\n\n    return app.dataStore.update({ table, record });\n};\nconst appSleep = (millisec, sure) => {\n    return new Promise((resolve) => {\n        setTimeout(resolve, millisec);\n    });\n};\n\nreturn new Promise(async (resolve) => {\n    const steps = { ...app.context.steps };\n    let orderNotServiced = steps[\"ORDERNOTSERVICED\"];\n    // app.log(orderNotServiced, \"orderNotServiced\");\n    let options = [\n        {\n            title: \"Product not available\",\n        },\n        {\n            title: \"Area unserviceable\",\n        },\n        {\n            title: \"Customer not reachable\",\n        },\n        {\n            title: \"Cancelled by customer\",\n        },\n        {\n            title: \"back\",\n        },\n    ];\n\n    let message = app.data.message ? app.data.message.trim().toLowerCase() : \"\";\n    let orderIndex = {};\n    if (steps[\"ORDERINDEX\"]) {\n        orderIndex = steps[\"ORDERINDEX\"];\n    } else {\n        orderIndex.from = 0;\n    }\n    let matchedOption = app._.find(options, (e) => {\n        return e.title.toLowerCase() == message;\n    });\n    // return;\n    if (matchedOption && matchedOption.title) {\n        if (message.match(/back/i)) {\n            return app.triggerIntent(\n                app.context.intent,\n                {},\n                {\n                    ORDERINDEX: orderIndex,\n                    ORDERDATE: steps[\"ORDERDATE\"],\n                }\n            );\n        }\n        let reason = matchedOption.title;\n        await dbUpdate({\n            table: \"order_db\",\n            record: {\n                _id: orderNotServiced._id,\n                order_status: \"ORDER NOT SERVICED\",\n                total_ordered_items: 0,\n                fulfilled_items: 0,\n                order_value: 0,\n                total_order_value: 0,\n                payment_mode: \"\",\n                order_reason: reason,\n            },\n        })\n            .then(async (ord) => {\n                await app.memory.set(\"currentOrder\", ord, 300);\n                await app\n                    .sendNotificationMessageToUser(\n                        orderNotServiced._source.senderid,\n                        app.formatMsgToWA(\n                            `Hi ${orderNotServiced._source.customer_name},\\n\\nYour order #${orderNotServiced._source.order_id} has been <strong>cancelled</strong>\\nReason <strong>\"${matchedOption.title}\"</strong>.`,\n                            true\n                        ),\n                        orderNotServiced._source.user_source\n                    )\n                    .catch(app.logger.error);\n\n                await app.setStep(\"ORDERNOTSERVICED\", undefined);\n                // await app.sendTextMessage(\"Plese wait.. Updating the status\");\n                // await appSleep(1500);\n                let orders = steps[\"ORDERS\"];\n                orders.splice(steps[\"ORDERNOTSERVICED_INDEX\"], 1);\n                steps[\"ORDERINDEX\"].total -= 1;\n                await app.sendTextMessage(\n                    `Order ${orderNotServiced._source.order_id} is updated with status \"ORDER NOT SERVICED\" & with reason \"${matchedOption.title}\"`\n                );\n                return app.triggerIntent(\n                    app.context.intent,\n                    {},\n                    {\n                        ORDERINDEX: orderIndex,\n                        ORDERDATE: steps[\"ORDERDATE\"],\n                    }\n                );\n            })\n            .catch(async () => {\n                await app.sendTextMessage(\"Please try again.\");\n                app.triggerIntent(\n                    app.context.intent,\n                    {},\n                    {\n                        ORDERINDEX: orderIndex,\n                        ORDERDATE: steps[\"ORDERDATE\"],\n                    }\n                );\n                // app.triggerIntent(app.context.intent, {}, {\n                //     \"ORDERINDEX\": steps['ORDERINDEX'],\n                //     \"ORDERDATE\": steps[\"ORDERDATE\"],\n                //     'ORDERS': steps['ORDERS'],\n                //     \"ORDERNOTSERVICED\": undefined,\n                //     \"ORDERNOTSERVICED_INDEX\": undefined\n                // })\n            });\n    } else if (message.match(/back/i)) {\n        return app.triggerIntent(\n            app.context.intent,\n            {},\n            {\n                ORDERINDEX: orderIndex,\n                ORDERDATE: steps[\"ORDERDATE\"],\n            }\n        );\n    } else {\n        await app.sendQuickReplies({\n            title: \"Please select correct option\",\n            options,\n        });\n        resolve({ success: false });\n    }\n});\n"
+		},
+		{
+			"name": "smOrderItemsStep",
+			"code": "const promptQR = {\n    title: \"How many items were ordered?\",\n    options: [\n        {\n            title: \"back\",\n            text: \"back\",\n        },\n    ],\n};\nreturn new Promise(async (resolve) => {\n    /**\n     * passing args from UI\n     */\n    if (app._.get(args, \"[0]\") === \"prompt\") {\n        await app.sendQuickReplies(promptQR);\n        return resolve();\n    }\n    /** if not prompt, then we are in validator of the step */\n    let message = app._.get(app, \"data.message\", \"\");\n    if (!message) {\n        return app.sendQuickReplies(promptQR);\n    }\n    if (message.match(/back/i)) {\n        return app.triggerIntent(\n            app.context.intent,\n            {},\n            {\n                ORDERINDEX: app.context.steps.ORDERINDEX,\n                ORDERDATE: app.context.steps.ORDERDATE,\n            }\n        );\n    }\n    await app.setStep(\"fulfilled-items\", undefined);\n    return resolve();\n}).catch(app.logger.error);\n"
+		},
+		{
+			"name": "smFulfilledItemsStep",
+			"code": "const promptQR = (val) => ({\n    title: `How many items were fulfilled?`,\n    options: [\n        {\n            title: \"back\",\n            text: \"back\",\n        },\n    ],\n});\nreturn new Promise(async (resolve) => {\n    /**\n     * passing args from UI\n     */\n    if (app._.get(args, \"[0]\") === \"prompt\") {\n        /** entered ordered items */\n        let orderedItems = app.context.steps[\"order-items\"].trim();\n        await app.sendQuickReplies(promptQR(orderedItems));\n        return resolve();\n    }\n    /** if not prompt, then we are in validator of the step */\n    let message = app._.get(app, \"data.message\", \"\");\n    if (!message || isNaN(message)) {\n        /** entered ordered items */\n        let orderedItems = app.context.steps[\"order-items\"].trim();\n        return app.sendQuickReplies(promptQR(orderedItems));\n    }\n    if (message.match(/back/i)) {\n        await app.setStep(\"order-items\", undefined);\n        return resolve();\n    }\n    return resolve();\n}).catch(app.logger.error);\n"
+		},
+		{
+			"name": "smOrderValueStep",
+			"code": "const promptQR = {\n    title: \"What is the order value?\\n(Mention in Indian Rupees)?\",\n    options: [\n        {\n            title: \"back\",\n            text: \"back\",\n        },\n    ],\n};\nreturn new Promise(async (resolve) => {\n    /**\n     * passing args from UI\n     */\n    if (app._.get(args, \"[0]\") === \"prompt\") {\n        await app.sendQuickReplies(promptQR);\n        return resolve();\n    }\n    /** if not prompt, then we are in validator of the step */\n    let message = app._.get(app, \"data.message\", \"\");\n    if (!message) {\n        return app.sendQuickReplies(promptQR);\n    }\n    if (message.match(/back/i)) {\n        await app.setStep(\"payment-mode\", undefined);\n        return resolve();\n    }\n    if (isNaN(message)) {\n        return app.sendQuickReplies(promptQR);\n    }\n\n    let currentOrder = app.context.steps[\"CURRENTORDER\"];\n    if (!currentOrder) {\n        await app.sendTextMessage(\"something went wrong\");\n        return app.triggerIntent(app.context.intent);\n    }\n    const updatedResponse = await app.dataStore\n        .update({\n            table: \"order_db\",\n            record: {\n                _id: currentOrder._id,\n                order_status: \"ORDER CONFIRMED\",\n                total_ordered_items: Number(app.context.steps[\"order-items\"].trim()),\n                fulfilled_items: Number(app.context.steps[\"fulfilled-items\"].trim()),\n                order_value: Number(message),\n                total_order_value: Number(message),\n                order_reason: \"\",\n            },\n        })\n        .catch(app.logger.error);\n    updatedResponse && (await app.memory.set(\"currentOrder\", updatedResponse, 300));\n    await app\n        .sendNotificationMessageToUser(\n            currentOrder._source.senderid,\n            app.formatMsgToWA(\n                `Hi ${currentOrder._source.customer_name},\\n\\nYour order #${\n                    currentOrder._source.order_id\n                } from Spencer's retail is <strong>confirmed</strong>.\\n\\nOrdered Items: ${Number(\n                    app.context.steps[\"order-items\"].trim()\n                )}\\nFulfilled Items: ${Number(\n                    app.context.steps[\"fulfilled-items\"].trim()\n                )}\\nOrder value: INR ${Number(message)}/-\\n\\nYou can pay using Cash/Card/PayTM at the time of delivery.`,\n                true\n            ),\n            currentOrder._source.user_source\n        )\n        .catch(app.logger.error);\n    // await app.sendTextMessage(\"Please wait.. Updating the status\");\n    // await app.sleep(1500, true);\n    await app.sendTextMessage(`Order (${currentOrder._source.order_id}) status updated to - ORDER CONFIRMED`);\n    return app.triggerIntent(\n        app.context.intent,\n        {},\n        {\n            ORDERINDEX: app.context.steps.ORDERINDEX,\n            ORDERDATE: app.context.steps.ORDERDATE,\n        }\n    );\n}).catch(app.logger.error);\n"
+		},
+		{
+			"name": "smPaymentModeStep",
+			"code": "const promptQR = {\n    title: \"select the <strong>payment mode</strong>?\",\n    options: [\n        {\n            title: \"PayTM\",\n            text: \"paytm\",\n        },\n        {\n            title: \"cash\",\n            text: \"cash\",\n        },\n        {\n            title: \"card\",\n            text: \"card\",\n        },\n        {\n            title: \"back\",\n            text: \"back\",\n        },\n    ],\n};\nreturn new Promise(async (resolve) => {\n    /**\n     * passing args from UI\n     */\n    if (app._.get(args, \"[0]\") === \"prompt\") {\n        await app.sendQuickReplies(promptQR);\n        return resolve();\n    }\n    /** if not prompt, then we are in validator of the step */\n    let message = app._.get(app, \"data.message\", \"\");\n    if (!message) {\n        return app.sendQuickReplies(promptQR);\n    }\n    if (message.match(/back/i)) {\n        return app.triggerIntent(\n            app.context.intent,\n            {},\n            {\n                ORDERINDEX: app.context.steps.ORDERINDEX,\n                ORDERDATE: app.context.steps.ORDERDATE,\n            }\n        );\n    }\n    let paymentMode;\n\n    if (message.match(/paytm/gi)) {\n        paymentMode = \"PAYTM\";\n    } else if (message.match(/cash/gi)) {\n        paymentMode = \"CASH\";\n    } else if (message.match(/card/gi)) {\n        paymentMode = \"CARD\";\n    }\n    if (!paymentMode) {\n        return app.sendQuickReplies(promptQR);\n    }\n\n    let currentOrder = app.context.steps[\"CURRENTORDER\"];\n    if (!currentOrder) {\n        await app.sendTextMessage(\"something went wrong\");\n        return app.triggerIntent(app.context.intent);\n    }\n    const updatedResponse = await app.dataStore\n        .update({\n            table: \"order_db\",\n            record: {\n                _id: currentOrder._id,\n                payment_mode: paymentMode,\n                order_status: \"ORDER DELIVERED\",\n                order_reason: \"\",\n            },\n        })\n        .catch(app.logger.error);\n    updatedResponse && (await app.memory.set(\"currentOrder\", updatedResponse, 300));\n    const eventToSend = {\n        code: \"trigger-order-feedback\",\n        data: {\n            orderId: currentOrder._source.order_id,\n            showMessage: app.formatMsgToWA(\n                `Hi ${currentOrder._source.customer_name},\\n\\nYour order #${currentOrder._source.order_id} from Spencer's retail has been <strong>delivered</strong>. Please feel free to leave a feedback.`,\n                true\n            ),\n        },\n    };\n    await app\n        .sendNotificationMessageToUser(\n            currentOrder._source.senderid,\n            undefined,\n            currentOrder._source.user_source,\n            eventToSend\n        )\n        .catch(app.logger.error);\n    // await app.sendTextMessage(\"Please wait.. Updating the status\");\n    // await app.sleep(1500, true);\n    await app.sendTextMessage(`Order (${currentOrder._source.order_id}) status updated to - ORDER DELIVERED`);\n    return app.triggerIntent(\n        app.context.intent,\n        {},\n        {\n            ORDERINDEX: app.context.steps.ORDERINDEX,\n            ORDERDATE: app.context.steps.ORDERDATE,\n        }\n    );\n}).catch(app.logger.error);\n"
+		},
+		{
+			"name": "utilStoreManager",
+			"code": "return new Promise((resolve) => {\n    app.getOrders = async function (plant, date, index = 0, size = 10) {\n        let tableName = \"order_db\";\n        let timestramp = {};\n        if (date && date.upto && date.from) {\n            timestramp = {\n                gte: app.indianHours(new Date(date.from), \"+\").toISOString().split(\"T\")[0],\n                lte: app.indianHours(new Date(date.upto), \"+\").toISOString().split(\"T\")[0],\n            };\n        } else if (date && date.from) {\n            timestramp = {\n                gte: app.indianHours(new Date(date.from), \"+\").toISOString().split(\"T\")[0],\n                lte: app.indianHours(new Date(date.from), \"+\").toISOString().split(\"T\")[0],\n            };\n        }\n        let bodyQuery = {\n            query: {\n                bool: {\n                    must: [\n                        {\n                            range: {\n                                insertedDate: timestramp,\n                            },\n                        },\n                        {\n                            match: {\n                                store_plant: plant,\n                            },\n                        },\n                        {\n                            bool: {\n                                must_not: [\n                                    // {\n                                    //     match: {\n                                    //         order_status: \"ORDER CONFIRMED\",\n                                    //     },\n                                    // },\n                                    // {\n                                    //     match: {\n                                    //         order_status: \"ORDER NOT SERVICED\",\n                                    //     },\n                                    // },\n                                ],\n                            },\n                        },\n                    ],\n                },\n            },\n            sort: [\n                {\n                    insertedDate: \"desc\",\n                },\n            ],\n            from: index,\n            size: size,\n        };\n        app.log(bodyQuery, \"bodyQuery\");\n        let dbSearch = await app.dataStore.search({ table: tableName, body: bodyQuery }).catch(() => {\n            app.log(\"db error\");\n            return {};\n        });\n        return [app._.get(dbSearch, \"hits.hits\", []), app._.get(dbSearch, \"hits.total\", false)];\n    };\n\n    app.showOrders = async function (store_plant, date, ordIndex = 0) {\n        // await app.sendTextMessage('you enter message has this date' + enteredDate);\n        let cards = [];\n        let orders;\n        // if (offOrders && offOrders.length && offOrders[0] && offOrders[0].length) {\n        // orders = offOrders;\n        // } else {\n        orders = await app.getOrders(store_plant, { from: date }, ordIndex).catch((e) => {\n            app.log(e, \"error\");\n            return [];\n        });\n\n        // }\n        // app.log(orders);\n        if (!orders || !orders[0] || !orders[0].length) {\n            // if (ordIndex != 0) {\n            //     ordIndex = 0;\n            //     orders = await app.getOrders(store_plant, { \"from\": date }, ordIndex).catch((e) => {\n            //         return [];\n            //     });\n            // } else {\n\n            const today = new Date();\n            const yesterday = new Date(today);\n            yesterday.setDate(yesterday.getDate() - 2);\n            await app.sendQuickReplies({\n                title: `No orders on <strong>${\n                    app.indianHours(date, \"+\").toLocaleString().split(\" \")[0]\n                }\\n\\nType a date (eg., 2020 april 25th) to get orders on that date`,\n                options: [\n                    {\n                        title: \"Show orders on Yesterday\",\n                    },\n                    {\n                        title: \"Show orders on day before yesterday\",\n                    },\n                ],\n            });\n            await app.setMultipleSteps({\n                ORDERINDEX: { total: 0, from: 0 },\n                ORDERDATE: date,\n            });\n            return;\n            // }\n        }\n        const currentOrder = await app.memory\n            .get(\"currentOrder\")\n            .then(JSON.parse)\n            .then((res) => ({ _id: res._id, _source: res }))\n            .catch(() => undefined);\n        app.memory.delete(\"currentOrder\");\n        orders[0].forEach((ord, index) => {\n            if (currentOrder && ord._id === currentOrder._id) {\n                ord = currentOrder;\n            }\n            // let order_items_list = ord._source.order_items.split(/\\n|,\\s*\\n/).map((e) => {\n            //     return e.trim();\n            // });\n            // let order_qty_list = ord._source.order_qty.split(/\\n|,\\s*\\n/).map((e) => {\n            //     return parseInt(e.trim());\n            // });\n            let cardAction = [];\n            let cardTable;\n            // if (order_items_list.length == order_qty_list.length) {\n            //     cardTable = order_items_list.map((oilist, idx) => {\n            //         return {\n            //             title: oilist,\n            //             value: order_qty_list[idx],\n            //         };\n            //     });\n            // } else {\n            //     cardTable = [\n            //         {\n            //             title: `${ord._source.order_items}`,\n            //             value: `${ord._source.order_qty}`,\n            //         },\n            //     ];\n            // }\n            if (ord._source.order_status == \"CALL PLACED\") {\n                cardAction.push(\n                    {\n                        title: \"Order Confirmed\",\n                        text: \"Order Confirmed-\" + ord._source.order_id,\n                    },\n                    {\n                        title: \"Order Not Serviced\",\n                        text: \"Order Not Serviced-\" + ord._source.order_id,\n                    }\n                );\n            } else if (ord._source.order_status == \"ORDER CONFIRMED\") {\n                cardAction.push(\n                    {\n                        title: \"Order Delivered\",\n                        text: \"Order delivered-\" + ord._source.order_id,\n                    },\n                    {\n                        title: \"Order Not Serviced\",\n                        text: \"Order Not Serviced-\" + ord._source.order_id,\n                    }\n                );\n            } else if (ord._source.order_status == \"ORDER DELIVERED\") {\n            } else if (ord._source.order_status == \"ORDER NOT SERVICED\") {\n            } else {\n                cardAction.push({\n                    title: \"Place a Call\",\n                    url: \"tel:\" + ord._source.mobile,\n                });\n                cardAction.push({\n                    title: \"Call Placed\",\n                    text: \"Call Placed-\" + ord._source.order_id,\n                });\n            }\n\n            let cartTitle = `(${index + ordIndex + 1}/${\n                orders[1]\n            })</br>OrderId: <strong><span style=\"color:darkgoldenrod;font-size:1.2rem;\"> ${\n                ord._source.order_id\n            }</span></strong>\n                    </br></br><strong>Customer Name: ${\n                        ord._source.customer_name\n                    }</br></br>Ordered time: ${app.indianHours(ord._source.insertedDate, \"+\").toLocaleString()}</strong>\n                    </br></br><strong>Customer Mobile: ${ord._source.mobile}</strong>\n                    </br></br><strong>Customer Address: ${ord._source.address}</strong>`;\n            if (\n                app._.get(ord, \"_source.order_status\", \"\").match(\n                    /CALL\\s?PLACED|ORDER\\s?CONFIRMED|ORDER\\s?DELIVERED|ORDER\\s?NOT\\s?SERVICED/i\n                )\n            ) {\n                const store_m_text =\n                    `</br></br><strong>SM Mobile: ${ord._source.store_manager_mobile || \"\"}</strong>` +\n                    `</br><strong>SM Name: ${ord._source.store_manager_name || \"\"}</strong>`;\n                if (store_m_text) {\n                    cartTitle += store_m_text + \"</br>\";\n                }\n            }\n\n            if (ord._source.order_status == \"CALL PLACED\") {\n                cartTitle += `</br><span style=\"color:darkgreen;\">status: CALL PLACED</span>`;\n            } else if (ord._source.order_status == \"ORDER CONFIRMED\") {\n                cartTitle += `</br><span style=\"color:darkgreen;\">status: ORDER CONFIRMED</span>`;\n            } else if (ord._source.order_status == \"ORDER DELIVERED\") {\n                cartTitle += `</br><span style=\"color:darkgreen;\">status: ORDER DELIVERED</span>`;\n            } else if (ord._source.order_status == \"ORDER NOT SERVICED\") {\n                cartTitle += `</br><span style=\"color:darkgreen;\">status: ORDER NOT SERVICED</span>`;\n            } else {\n                cartTitle += `</br><span style=\"color:darkgoldenrod;font-size:0.9rem;\">status: CALL NOT YET PLACED</span>`;\n            }\n\n            cartTitle += `</br></br>Order items:</br><div id=\"order_list\" style=\"border: 1px dashed;padding: 5px 10px;\">${ord._source.order_list}</div>`;\n\n            if (\n                app._.get(ord, \"_source.order_status\", \"\").match(\n                    /ORDER\\s?CONFIRMED|ORDER\\s?DELIVERED|ORDER\\s?NOT\\s?SERVICED/i\n                )\n            ) {\n                const orderInfo =\n                    (ord._source.total_ordered_items\n                        ? `</br><strong>Ordered items: ${ord._source.total_ordered_items}</strong>`\n                        : \"\") +\n                    (ord._source.fulfilled_items\n                        ? `</br><strong>fulfilled items: ${ord._source.fulfilled_items}</strong>`\n                        : \"\") +\n                    (ord._source.order_value\n                        ? `</br><strong>Order value: INR ${ord._source.order_value}</strong>`\n                        : \"\");\n\n                if (orderInfo) {\n                    cartTitle += orderInfo + \"</br>\";\n                }\n            }\n            // app.log(cartTitle);\n\n            let card = {\n                title: cartTitle,\n                // text: `,\n                table: cardTable,\n                actions: cardAction,\n            };\n\n            cards.push(card);\n        });\n        await app.sendTextMessage(\n            `Orders on ${app.indianHours(date, \"+\").toLocaleString().split(\" \")[0]}\\n(count: ${orders[1]})`\n        );\n        await app.sendCards(cards);\n        let options = [];\n        if (orders[1] - ordIndex > 10) {\n            options.push({\n                title: \"Show more\",\n            });\n        }\n        app.log(ordIndex, \"ordIndex\");\n        if (ordIndex > 1) {\n            options.push({\n                title: \"Go back\",\n            });\n        }\n        options.push(\n            {\n                title: \"Show orders on Yesterday\",\n            },\n            {\n                title: \"Show orders on day before yesterday\",\n            },\n            {\n                title: \"Show orders of today\",\n            }\n        );\n        app.log(\"sending QRs\");\n        await app.sendQuickReplies({\n            title: \"\",\n            options,\n        });\n        await app.setMultipleSteps({\n            ORDERINDEX: { total: orders[1], from: ordIndex },\n            ORDERDATE: date,\n            ORDERS: orders[0],\n        });\n    };\n\n    app.sendNotificationMessageToUser = async (sender, showMessage, source = \"whatsapp\", event = undefined) => {\n        const userLastMessagedAt = await app\n            .executeFunction(\"activityTracker\", { mode: \"lastInteracted\", sender })\n            .catch(app.logger.error);\n        if (!userLastMessagedAt) {\n            return;\n        }\n        const hoursPassed = app.moment().diff(app.moment(userLastMessagedAt), \"hours\");\n        app.log(hoursPassed, \"hoursPassed\");\n        if (hoursPassed > 23) {\n            return;\n        }\n        const axios = app.axios;\n        let data = JSON.stringify({\n            from: sender,\n            to: app.bot,\n            source: source,\n            data: {\n                event: event || {\n                    code: \"store-manager-sent\",\n                    data: {\n                        showMessage,\n                    },\n                },\n            },\n        });\n        let config = {\n            method: \"post\",\n            url: \"https://app.yellowmessenger.com/integrations/yellowmessenger/receive\",\n            headers: {\n                \"Content-Type\": \"application/json\",\n            },\n            data: data,\n            json: true,\n        };\n\n        await axios(config)\n            .then(function (response) {\n                app.log(response.data);\n            })\n            .catch(function (error) {\n                app.log(error);\n            });\n    };\n    app.sendNotificationMessageToSM = async (storeId, name, orderId) => {\n        let smanagers = await app.globalMemory\n            .get(`store_manager_uid_${storeId}`)\n            .then(JSON.parse)\n            .catch(() => undefined);\n        console.log(smanagers, \"smanagers\");\n        if (!smanagers || !smanagers.length) {\n            return;\n        }\n        for (const sm of smanagers) {\n            await app.executeFunction(\"sendWebNotification\", {\n                sender: sm,\n                body: `${name} - ${orderId}`,\n                title: \"New order has been received\",\n            });\n        }\n    };\n\n    resolve();\n});\n"
+		},
+		{
+			"name": "sendWebNotification",
+			"code": "return new Promise((resolve) => {\n    let axios = app.axios;\n\n    let data = JSON.stringify({\n        sender: app._.get(args, \"sender\", app.sender),\n        payload: {\n            body: args.body,\n            title: args.title,\n            icon: \"https://cdn.yellowmessenger.com/GCg6gvBpVscY1586710164590.png\",\n            // click_action: \"https://app.yellowmessenger.com/pwa/mobile/\" + app.bot,\n        },\n    });\n    // let data = JSON.stringify({ \"sender\": \"11790040642273630016883599812\", \"payload\": { \"body\": \"I am body\", \"title\": \"I am title\", \"icon\": \"https://cdn.yellowmessenger.com/ZeExrs54lDiZ1600341521636.jpg\", \"click_action\": \"https://app.yellowmessenger.com/pwa/mobile/x1586702990815\", \"sound\": \"default\" } });\n\n    let config = {\n        method: \"post\",\n        url: \"https://app.yellowmessenger.com/integrations/yellowmessenger/sendNotification/\" + app.bot,\n        headers: {\n            \"Content-Type\": \"application/json\",\n            \"Cookie\": \"__cfduid=d55b55a60602cc26a4f207fd752e20a611608182086\",\n        },\n        data: data,\n    };\n\n    app.logger.log(data, \"data\");\n\n    axios(config)\n        .then(function (response) {\n            console.log(JSON.stringify(response.data));\n            resolve(response.data);\n        })\n        .catch(function (error) {\n            console.log(error);\n            resolve({ success: false });\n        });\n});\n"
+		}
+	]
+}
